@@ -24,6 +24,7 @@ int main(int argc, char** argv)
   long_int radicand{radicand_string};
 
   int j = 0;
+
   if (radicand != 0)
   {
     fours[0] = 1;
@@ -33,9 +34,7 @@ int main(int argc, char** argv)
       fours[j + 1] = fours[j] * 4;
       j++;
     }
-    for (const auto& four : fours)
-    {
-    }
+
     while (j >= 0)
     {
       long_int num = fours[j] * ((square_root * 4) + 1);
@@ -53,18 +52,7 @@ int main(int argc, char** argv)
     }
   }
 
-  for (const auto& n : square_root.digits())
-  {
-    std::cout << n;
-  }
+  for (const auto& n : square_root.digits()) std::cout << n;
 
-  // This is all just for printing.
-  // if (square_root == 0) {
-  //   cout << radicand << "." << zeros << endl;
-  // }
-  // else {
-  //   cout << square_root.substr(0, square_root.length() - decimal) << "." <<
-  //   square_root.substr(square_root.length() - decimal)
-  //        << endl;
-  // }
+  std::cout << '\n';
 }

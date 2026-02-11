@@ -1,7 +1,6 @@
 #include "long_int.h"
 
 #include <algorithm>
-#include <iostream>
 
 long_int::long_int() : data{} {}
 
@@ -47,28 +46,6 @@ long_int::long_int(const std::string& n)
   }
 }
 
-long_int::long_int(long_int&& other) noexcept
-{
-  this->data = std::move_if_noexcept(other.data);
-}
-
-long_int::long_int(const long_int& other)
-{
-  this->data = other.data;
-}
-
-long_int& long_int::operator=(const long_int& other)
-{
-  this->data = other.data;
-  return *this;
-}
-
-long_int& long_int::operator=(long_int&& other) noexcept
-{
-  this->data = std::move_if_noexcept(other.data);
-  return *this;
-}
-
 std::strong_ordering long_int::operator<=>(const long_int& other) const
 {
   if (data.size() != other.data.size())
@@ -89,7 +66,7 @@ std::strong_ordering long_int::operator<=>(const long_int& other) const
 
 long_int long_int::operator+(const long_int& other) const
 {
-  int i = this->data.size() - 1;
+  int i = data.size() - 1;
   int j = other.data.size() - 1;
   long_int sum;
   int carry = 0;
@@ -100,7 +77,7 @@ long_int long_int::operator+(const long_int& other) const
 
     if (i >= 0)
     {
-      inner_sum += this->data[i];
+      inner_sum += data[i];
       i--;
     }
 
@@ -173,13 +150,13 @@ long_int long_int::operator*(const long_int& other) const
   }
 
   long_int product;
-  product.data.resize(this->data.size() + other.data.size(), 0);
+  product.data.resize(data.size() + other.data.size(), 0);
 
-  for (int i = this->data.size() - 1; i >= 0; i--)
+  for (int i = data.size() - 1; i >= 0; i--)
   {
     for (int j = other.data.size() - 1; j >= 0; j--)
     {
-      int temp = product.data[i + j + 1] + this->data[i] * other.data[j];
+      int temp = product.data[i + j + 1] + data[i] * other.data[j];
       product.data[i + j + 1] = temp % 10;
       product.data[i + j] += temp / 10;
     }
@@ -198,18 +175,3 @@ std::vector<int> long_int::digits()
   return data;
 }
 
-std::ostream& operator<<(std::ostream& os, const long_int& num)
-{
-  if (num.data.empty())
-  {
-    os << "0";
-    return os;
-  }
-
-  for (int digit : num.data)
-  {
-    os << digit;
-  }
-
-  return os;
-}
