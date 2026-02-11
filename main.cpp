@@ -6,7 +6,7 @@
 #include <chrono>
 #include <iomanip>
 
-int main(int argc, char** argv)
+int main()
 {
   std::string radicand_string;
   long_int square_root = 0;
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 
     while (j >= 0)
     {
-      long_int num = fours[j] * ((square_root * 4) + 1);
+      long_int num = ((square_root * 4) + 1) * fours[j];
 
       if (num <= radicand)
       {
@@ -58,9 +58,7 @@ int main(int argc, char** argv)
   auto end_time = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-  for (const auto& n : square_root.digits()) std::cout << n;
-
-  std::cout << '\n';
+  std::cout << square_root << std::endl;
 
   double seconds = duration.count() / 1000000.0;
   std::cout << "\nPerformance: ";
