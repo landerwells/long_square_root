@@ -19,6 +19,8 @@ class long_int
   std::strong_ordering operator<=>(const long_int& other) const;
   bool operator==(const long_int& other) const = default;
 
+  friend std::ostream& operator<<(std::ostream& os, const long_int& num);
+
   private:
   std::vector<int> data{};
 };

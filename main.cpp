@@ -1,6 +1,5 @@
 #include "long_int.h"
 
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>

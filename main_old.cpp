@@ -34,9 +34,7 @@ int main(int argc, char** argv)
       fours[j + 1] = multiply(fours[j], "4");
       j++;
     }
-    for (const auto& four: fours) {
-      std::cout << four << std::endl;
-    }
+
     while (j >= 0)
     {
       string num = multiply(fours[j], add("1", multiply("4", ans)));

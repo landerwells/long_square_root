@@ -53,7 +53,7 @@ std::strong_ordering long_int::operator<=>(const long_int& other) const
     return data.size() <=> other.data.size();
   }
 
-  for (int i = data.size() - 1; i >= 0; --i)
+  for (size_t i = 0; i < data.size(); ++i)
   {
     if (data[i] != other.data[i])
     {
@@ -174,4 +174,3 @@ std::vector<int> long_int::digits()
 {
   return data;
 }
-
