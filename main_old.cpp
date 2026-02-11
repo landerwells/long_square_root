@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <chrono>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,6 +24,9 @@ int main(int argc, char** argv)
   string zeros(decimal, '0');
   n += zeros + zeros;
   trim(n);
+
+  auto start_time = std::chrono::high_resolution_clock::now();
+
   std::vector<std::string> fours(n.size() * 2, "0");
   fours[0] = "0";
 
@@ -45,11 +50,31 @@ int main(int argc, char** argv)
       j--;
     }
   }
+
+  auto end_time = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
   if (compare(ans, "0") == 0)
     cout << n << "." << zeros << endl;
   else
     cout << ans.substr(0, ans.length() - decimal) << "." << ans.substr(ans.length() - decimal)
          << endl;
+
+  double seconds = duration.count() / 1000000.0;
+  cout << "\nPerformance: ";
+  if (seconds < 0.001) {
+    cout << std::fixed << std::setprecision(2) << (duration.count() / 1000.0) << " microseconds";
+  } else if (seconds < 1.0) {
+    cout << std::fixed << std::setprecision(2) << (duration.count() / 1000.0) << " milliseconds";
+  } else if (seconds < 60.0) {
+    cout << std::fixed << std::setprecision(3) << seconds << " seconds";
+  } else {
+    int minutes = static_cast<int>(seconds / 60);
+    double remaining_seconds = seconds - (minutes * 60);
+    cout << minutes << " minute(s) and " << std::fixed << std::setprecision(2) << remaining_seconds << " seconds";
+  }
+  cout << '\n';
+
   return 0;
 }
 

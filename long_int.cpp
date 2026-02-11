@@ -39,7 +39,6 @@ long_int::long_int(const std::string& n)
     data.push_back(c - '0');
   }
 
-  // Trim leading zeros
   while (data.size() > 1 && data[0] == 0)
   {
     data.erase(data.begin());
@@ -98,10 +97,9 @@ long_int long_int::operator+(const long_int& other) const
 
 long_int long_int::operator-(const long_int& other) const
 {
-  long_int a = *this;  // Make a copy we can modify
-  long_int b = other;  // Make a copy we can modify
+  long_int a = *this;
+  long_int b = other;
 
-  // Pad with leading zeros to same length
   while (a.data.size() < b.data.size())
   {
     a.data.insert(a.data.begin(), 0);
@@ -117,12 +115,10 @@ long_int long_int::operator-(const long_int& other) const
     b.data[i] = 9 - b.data[i];
   }
 
-  // Add a + b + 1, then remove leading digit
   long_int one(1);
   long_int sum1 = a + b;
   long_int sum2 = sum1 + one;
 
-  // Remove the leading digit (equivalent to substr(1))
   long_int diff;
   if (sum2.data.size() > 1)
   {
