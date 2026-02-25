@@ -23,35 +23,31 @@ int main()
 
   auto start_time = std::chrono::high_resolution_clock::now();
 
-  std::vector<long_int> fours(radicand_string.size() * 2, 0);
   long_int radicand{radicand_string};
-
-  int j = 0;
+  long_int fours = 1;
 
   if (radicand != 0)
   {
-    fours[0] = 1;
-
-    while ((fours[j] * 4) < radicand)
+    while ((fours << 2) < radicand)
     {
-      fours[j + 1] = fours[j] * 4;
-      j++;
+      fours = fours << 2;
     }
 
-    while (j >= 0)
+    while (fours >= 1)
     {
-      long_int num = ((square_root * 4) + 1) * fours[j];
+      // Need to focus on this line, must get the last multiplication out
+      long_int num = ((square_root << 4) + 1) * fours;
 
       if (num <= radicand)
       {
         radicand = radicand - num;
-        square_root = (square_root * 2) + 1;
+        square_root = (square_root << 1) + 1;
       }
       else
       {
-        square_root = square_root * 2;
+        square_root = square_root << 1;
       }
-      j--;
+      fours = fours >> 2;
     }
   }
 
